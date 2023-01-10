@@ -18,6 +18,7 @@ namespace SandSpace
 				if (force > 0.0f)
 				{
 					force = force * SandSpaceMod.Settings.hazardsForceMult;
+					damage = damage * SandSpaceMod.Settings.hazardsDamageMult;
 
 					var preRadius = radius;
 					radius = preRadius * SandSpaceMod.Settings.hazardsSizeMult;

@@ -71,6 +71,9 @@ namespace SandSpace
 		[Draw ("┣━ Change size of all explosions by multiplier", Min = 0.01, Max = 1000)]
 		public float hazardsSizeMult = 4.0f;
 
+		[Draw ("┣━ Change damage of all explosions by multiplier", Min = 0.01, Max = 1000)]
+		public float hazardsDamageMult = 1.0f;
+
 		[Draw ("┗━ Change force of all explosions by multiplier", Min = 0.01, Max = 1000)]
 		public float hazardsForceMult = 1.0f;
 
