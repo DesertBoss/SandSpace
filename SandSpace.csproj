@@ -59,15 +59,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameStartOrLoadHook.cs" />
-    <Compile Include="HangarsPatches.cs" />
-    <Compile Include="HazardPatches.cs" />
-    <Compile Include="MainMenuHook.cs" />
+    <Compile Include="Hooks\GameStartOrLoadHook.cs" />
+    <Compile Include="Patches\HangarsPatches.cs" />
+    <Compile Include="Patches\HazardPatches.cs" />
+    <Compile Include="Hooks\MainMenuHook.cs" />
     <Compile Include="PatchingExtension.cs" />
     <Compile Include="SandSpaceMod.cs" />
-    <Compile Include="PerkPatches.cs" />
+    <Compile Include="Patches\PerkPatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
