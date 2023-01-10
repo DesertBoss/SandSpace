@@ -14,8 +14,8 @@ namespace SandSpace
 			private static void Postfix ()
 			{
 				SandSpaceMod.Settings.OnNewGame ();
-				PerkPatches.PerkOverride ();
-				HangarsPatches.OnGameLoad ();
+				PerkPatches.OnNewGame ();
+				HangarsPatches.OnNewGame ();
 			}
 		}
 
@@ -25,7 +25,7 @@ namespace SandSpace
 			private static void Postfix ()
 			{
 				SandSpaceMod.Settings.OnLoadGame ();
-				PerkPatches.PerkOverride ();
+				PerkPatches.OnGameLoad ();
 				HangarsPatches.OnGameLoad ();
 			}
 		}

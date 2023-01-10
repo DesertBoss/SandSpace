@@ -12,6 +12,16 @@ namespace SandSpace
 
 	internal class HangarsPatches
 	{
+		internal static void OnGameLoad ()
+		{
+			FixActiveInBattle ();
+		}
+
+		internal static void OnNewGame ()
+		{
+			FixActiveInBattle ();
+		}
+
 		[HarmonyPatch (typeof (HangarConfig), "DisplayAllHangars")]
 		private static class HangarConfig_DisplayAllHangars_Patch
 		{
@@ -75,16 +85,6 @@ namespace SandSpace
 				var perk = GameManager.GetPerkManager ().GetPerk (PerkType.StrikeCraftActive_4);
 				perk.myPerkValue = SandSpaceMod.Settings.maxActiveHangars - 3;
 			}
-		}
-
-		internal static void OnGameLoad ()
-		{
-			FixActiveInBattle ();
-		}
-
-		internal static void OnNewGame ()
-		{
-			FixActiveInBattle ();
 		}
 	}
 }
