@@ -25,7 +25,7 @@ This is a mod for the game "SPAZ 2" which uses the Unity Mod Manager to work.
 ```
 2. Open Unity Mod Manager and select game from the Install tab.
 3. Then change the installation method to DoorstopProxy and click Install.
-4. Download the mod file from git rep, then in the "Mods" tab, drag the archive into the program window.
+4. Download the mod file from [releases](https://github.com/DesertBoss/SandSpace/releases), then in the "Mods" tab, drag the archive into the program window.
 5. Ready.
 
 - Use the Unity Mod Manager UI to change mod settings.
