@@ -31,9 +31,9 @@ namespace SandSpace
 		[Draw ("┗━ Hangar 4 unlock level", Min = 0, Max = 100, InvisibleOn = "_newGameNeed|true")]
 		public int hangar_4_unlockLevel = 0;
 
-
-		[Header ("┣━ Infinite Perks"), Space (25f)]
+		[Header ("┣━ Infinite Perks")]
 		[Header ("┏ Perks"), Space (25f)]
+
 		[Draw ("┣━━ Health perk bonus", Min = 1, Max = 1000)]
 		public int perkHealthInf = 25;
 
@@ -55,7 +55,7 @@ namespace SandSpace
 		[Draw ("┗━━ Strike Craft Reserve perk bonus", Min = 1, Max = 1000)]
 		public int perkStrikeCraftReserveInf = 8;
 
-		[Space (15f), Header ("┏ Misc"), Space (25f)]
+		[Header ("┏ Misc"), Space (25f)]
 
 		[Draw ("┗━ Write default values when starting a new game")]
 		public bool writeDefOnNewGame = true;

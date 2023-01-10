@@ -9,31 +9,26 @@ namespace SandSpace
 	// SymbolExtensions
 	// Transpilers
 
-	internal class HangarsPatch
+	internal class HangarsPatches
 	{
-		[HarmonyPatch (typeof (HangarConfig)), HarmonyPatch ("DisplayAllHangars")]
+		[HarmonyPatch (typeof (HangarConfig), "DisplayAllHangars")]
 		private static class HangarConfig_DisplayAllHangars_Patch
 		{
 			private static IEnumerable<CodeInstruction> Transpiler (IEnumerable<CodeInstruction> instructions)
 			{
-				var codes = new List<CodeInstruction>(instructions);
-
-				for (var i = 0; i < codes.Count; i++)
-				{
-					if (codes[i].opcode == OpCodes.Ldloc_0 &&
-						codes[i + 1].opcode == OpCodes.Ldc_I4_4 &&
-						codes[i + 2].opcode == OpCodes.Blt)
-					{
-						codes[i + 1].opcode = OpCodes.Ldc_I4;
-						codes[i + 1].operand = SandSpaceMod.Settings.maxActiveHangars;
+				instructions.Manipulator (
+					item => item.opcode == OpCodes.Ldc_I4_4,
+					item => {
+						item.opcode = OpCodes.Ldc_I4;
+						item.operand = SandSpaceMod.Settings.maxActiveHangars;
 					}
-				}
-
-				return codes.AsEnumerable ();
+				);
+				
+				return instructions;
 			}
 		}
 
-		[HarmonyPatch (typeof (GameManager)), HarmonyPatch ("IsHangarUnlocked")]
+		[HarmonyPatch (typeof (GameManager), "IsHangarUnlocked")]
 		private static class GameManager_IsHangarUnlocked_Patch
 		{
 			private static void Postfix (ref bool __result, ref int hangarIndex)
@@ -47,7 +42,7 @@ namespace SandSpace
 			}
 		}
 
-		[HarmonyPatch (typeof (GameManager)), HarmonyPatch ("GetHangarDisplayLevel")]
+		[HarmonyPatch (typeof (GameManager), "GetHangarDisplayLevel")]
 		private static class GameManager_GetHangarDisplayLevel_Patch
 		{
 			private static void Postfix (ref int __result, ref int hangarIndex)
@@ -56,10 +51,10 @@ namespace SandSpace
 
 				if (hangarIndex > 3)
 				{
-					int myUnlockLevelInf = GameManager.GetPerkManager().GetPerk(PerkType.StrikeCraftActive_4).myUnlockLevel;
-					if (myUnlockLevelInf > playerCore.GetCurrentLevel ())
+					int unlockLevelInf = GameManager.GetPerkManager().GetPerk(PerkType.StrikeCraftActive_4).myUnlockLevel;
+					if (unlockLevelInf > playerCore.GetCurrentLevel ())
 					{
-						__result = myUnlockLevelInf;
+						__result = unlockLevelInf;
 					}
 				}
 			}

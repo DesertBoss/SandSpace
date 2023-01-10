@@ -8,25 +8,25 @@ namespace SandSpace
 {
 	internal class GameStartOrLoadHook
 	{
-		[HarmonyPatch (typeof (StarmapSetup)), HarmonyPatch ("SetupNewStarmap")]
+		[HarmonyPatch (typeof (StarmapSetup), "SetupNewStarmap")]
 		private static class StarmapSetup_SetupNewStarmap_Patch
 		{
 			private static void Postfix ()
 			{
 				SandSpaceMod.Settings.OnNewGame ();
 				PerkPatches.PerkOverride ();
-				HangarsPatch.OnGameLoad ();
+				HangarsPatches.OnGameLoad ();
 			}
 		}
 
-		[HarmonyPatch (typeof (StarmapSetup)), HarmonyPatch ("OnLoadGame_2")]
+		[HarmonyPatch (typeof (StarmapSetup), "OnLoadGame_2")]
 		private static class StarmapSetup_OnLoadGame_2_Patch
 		{
 			private static void Postfix ()
 			{
 				SandSpaceMod.Settings.OnLoadGame ();
 				PerkPatches.PerkOverride ();
-				HangarsPatch.OnGameLoad ();
+				HangarsPatches.OnGameLoad ();
 			}
 		}
 	}
