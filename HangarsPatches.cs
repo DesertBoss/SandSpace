@@ -40,11 +40,14 @@ namespace SandSpace
 		{
 			private static void Postfix (ref bool __result, ref int hangarIndex)
 			{
-				Core playerCore = StarmapManager.GetLevelSetup().GetPlayerCore();
+				var playerCore = StarmapManager.GetLevelSetup().GetPlayerCore();
 
 				if (hangarIndex > 3 && playerCore.HasPerk (PerkType.StrikeCraftActive_4))
 				{
-					__result = true;
+					var perk = GameManager.GetPerkManager().GetPerk(PerkType.StrikeCraftActive_4);
+					var unlockLevel_4 = perk.myUnlockLevel;
+					var unlockLevel_Inf = unlockLevel_4 + ((hangarIndex - 3) * SandSpaceMod.Settings.hangar_Inf_unlockLevel);
+					__result = playerCore.GetCurrentLevel () >= unlockLevel_Inf;
 				}
 			}
 		}
@@ -54,15 +57,13 @@ namespace SandSpace
 		{
 			private static void Postfix (ref int __result, ref int hangarIndex)
 			{
-				Core playerCore = StarmapManager.GetLevelSetup().GetPlayerCore();
-
 				if (hangarIndex > 3)
 				{
-					int unlockLevelInf = GameManager.GetPerkManager().GetPerk(PerkType.StrikeCraftActive_4).myUnlockLevel;
-					if (unlockLevelInf > playerCore.GetCurrentLevel ())
-					{
-						__result = unlockLevelInf;
-					}
+					var playerCore = StarmapManager.GetLevelSetup().GetPlayerCore();
+					var unlockLevel_4 = GameManager.GetPerkManager().GetPerk(PerkType.StrikeCraftActive_4).myUnlockLevel;
+					var unlockLevel_Inf = unlockLevel_4 + ((hangarIndex - 3) * SandSpaceMod.Settings.hangar_Inf_unlockLevel);
+					var unlock = playerCore.GetCurrentLevel () >= unlockLevel_Inf;
+					__result = unlock ? -1 : unlockLevel_Inf;
 				}
 			}
 		}

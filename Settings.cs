@@ -32,8 +32,11 @@ namespace SandSpace
 		[Draw ("┣━ Hangar 3 unlock level", Min = 0, Max = 100)]
 		public int hangar_3_unlockLevel = 10;
 
-		[Draw ("┗━ Hangar 4 unlock level", Min = 0, Max = 100)]
+		[Draw ("┣━ Hangar 4 unlock level", Min = 0, Max = 100)]
 		public int hangar_4_unlockLevel = 20;
+
+		[Draw ("┗━ Hangar Inf unlock level increment", Min = 0, Max = 100)]
+		public int hangar_Inf_unlockLevel = 0;
 
 		[Header ("┏ Perks"), Space (25f)]
 
