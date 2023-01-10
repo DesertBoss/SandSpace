@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
 using HarmonyLib;
 
 namespace SandSpace
@@ -26,7 +25,7 @@ namespace SandSpace
 						codes[i + 2].opcode == OpCodes.Blt)
 					{
 						codes[i + 1].opcode = OpCodes.Ldc_I4;
-						codes[i + 1].operand = 8;
+						codes[i + 1].operand = SandSpaceMod.Settings.maxActiveHangars;
 					}
 				}
 
@@ -64,6 +63,25 @@ namespace SandSpace
 					}
 				}
 			}
+		}
+
+		private static void FixActiveInBattle ()
+		{
+			if (SandSpaceMod.Settings.maxActiveHangars > 4)
+			{
+				var perk = GameManager.GetPerkManager ().GetPerk (PerkType.StrikeCraftActive_4);
+				perk.myPerkValue = SandSpaceMod.Settings.maxActiveHangars - 3;
+			}
+		}
+
+		internal static void OnGameLoad ()
+		{
+			FixActiveInBattle ();
+		}
+
+		internal static void OnNewGame ()
+		{
+			FixActiveInBattle ();
 		}
 	}
 }
