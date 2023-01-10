@@ -17,15 +17,21 @@ namespace SandSpace
 		{
 			private static IEnumerable<CodeInstruction> Transpiler (IEnumerable<CodeInstruction> instructions)
 			{
-				instructions.Manipulator (
-					item => item.opcode == OpCodes.Ldc_I4_4,
-					item => {
-						item.opcode = OpCodes.Ldc_I4;
-						item.operand = SandSpaceMod.Settings.maxActiveHangars;
+				var codes = new List<CodeInstruction>(instructions);
+
+				for (var i = 0; i < codes.Count; i++)
+				{
+					if (codes[i].opcode == OpCodes.Ldloc_0 &&
+						codes[i + 1].opcode == OpCodes.Ldc_I4_4 &&
+						codes[i + 2].opcode == OpCodes.Blt)
+					{
+						codes[i + 1].opcode = OpCodes.Ldc_I4;
+						codes[i + 1].operand = SandSpaceMod.Settings.maxActiveHangars;
+						return codes.AsEnumerable ();
 					}
-				);
-				
-				return instructions;
+				}
+
+				return codes.AsEnumerable ();
 			}
 		}
 

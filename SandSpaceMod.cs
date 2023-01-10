@@ -5,12 +5,13 @@ using System.Text;
 using UnityModManagerNet;
 using HarmonyLib;
 using System.Reflection;
+using static UnityModManagerNet.UnityModManager;
 
 namespace SandSpace
 {
 	public class SandSpaceMod
 	{
-		public const string version = "0.0.1";
+		public const string version = "0.1.1";
 
 		public static UnityModManager.ModEntry ModEntry { get; private set; }
 		public static Settings Settings { get; private set; }
@@ -44,6 +45,7 @@ namespace SandSpace
 		private static void OnSaveGUI (UnityModManager.ModEntry modEntry)
 		{
 			Settings.Save (modEntry);
+			ReloadHarmonyPatches ();
 		}
 
 		private static void OnGUI (UnityModManager.ModEntry modEntry)
@@ -59,6 +61,16 @@ namespace SandSpace
 			Harmony = null;
 
 			return true;
+		}
+
+		private static void ReloadHarmonyPatches ()
+		{
+			if (!SandSpaceMod.Settings._changed &&
+				SandSpaceMod.Settings._inGameLock)
+				return;
+
+			Harmony.UnpatchAll (SandSpaceMod.ModEntry.Info.Id);
+			Harmony.PatchAll (Assembly.GetExecutingAssembly ());
 		}
 	}
 }

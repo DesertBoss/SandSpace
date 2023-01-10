@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using HarmonyLib;
 
@@ -8,6 +9,32 @@ namespace SandSpace
 {
 	internal class PerkPatches
 	{
+		[HarmonyPatch (typeof (PerkCategoryManager), "SetCoreUnlocking")]
+		private static class PerkCategoryManager_SetCoreUnlocking_Patch
+		{
+			private static void Postfix ()
+			{
+				PerkPatches.CoreUnlockingPatch ();
+			}
+		}
+
+		private static void CoreUnlockingPatch ()
+		{
+			var man = GameManager.GetPerkManager ();
+			var startIdx = 5;
+			var totalCorePerks = PatchingExtension
+				.GetPrivateFieldValue<Dictionary<PerkClass, List<PerkType>>> (man, "perkClassLookup")
+				[PerkClass.Core]
+				.Count;
+
+			for (var i = 1; i < totalCorePerks; i++) // First CorePerk skip
+			{
+				var cur = startIdx + i;
+				var perkType = (PerkType)cur;
+				man.GetPerk (perkType).myPerkValue = SandSpaceMod.Settings.perkCoreUnlockingPerLevel;
+			}
+		}
+
 		internal static void PerkOverride ()
 		{
 			var man = GameManager.GetPerkManager ();
