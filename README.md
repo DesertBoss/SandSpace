@@ -11,7 +11,7 @@ This is a mod for the game "SPAZ 2" which uses the Unity Mod Manager to work.
 ## Installation
 - Mod requires [Unity Mod Manager](https://www.nexusmods.com/site/mods/21) to work.
 
-1. Add the following lines to the end of the file before </Config> in the UnityModManagerConfig.xml which is located in the Unity Mod Manager folder:
+1. Add the following lines to the end of the file before ```</Config>``` in the UnityModManagerConfig.xml which is located in the Unity Mod Manager folder:
 ```
 	<GameInfo Name="SPAZ 2">
 		<Folder>SPAZ2</Folder>
