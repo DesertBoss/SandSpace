@@ -11,7 +11,7 @@ namespace SandSpace
 {
 	public class SandSpaceMod
 	{
-		public const string version = "0.1.2";
+		public const string version = "0.3.1";
 
 		public static UnityModManager.ModEntry ModEntry { get; private set; }
 		public static Settings Settings { get; private set; }

@@ -66,6 +66,14 @@ namespace SandSpace
 		[Draw ("┗━━ Strike Craft Reserve perk bonus", Min = 1, Max = 1000)]
 		public int perkStrikeCraftReserveInf = 8;
 
+		[Header ("┏ Hazards"), Space (25f)]
+
+		[Draw ("┣━ Change size of all explosions by multiplier", Min = 0.01, Max = 1000)]
+		public float hazardsSizeMult = 4.0f;
+
+		[Draw ("┗━ Change force of all explosions by multiplier", Min = 0.01, Max = 1000)]
+		public float hazardsForceMult = 1.0f;
+
 		[Header ("┏ Misc"), Space (25f)]
 
 		[Draw ("┗━ Write default values when starting a new game")]
@@ -119,6 +127,21 @@ namespace SandSpace
 
 		private void SetDefaults ()
 		{
+			var def = new Settings ();
+
+			maxActiveHangars = def.maxActiveHangars;
+			hangar_Inf_unlockLevel = def.hangar_Inf_unlockLevel;
+			perkCoreUnlockingPerLevel = def.perkCoreUnlockingPerLevel;
+			perkHealthInf = def.perkHealthInf;
+			perkArmorInf = def.perkArmorInf;
+			perkCapacitorInf = def.perkCapacitorInf;
+			perkReactorInf = def.perkReactorInf;
+			perkWeaponDamageInf = def.perkWeaponDamageInf;
+			perkShieldStrengthInf = def.perkShieldStrengthInf;
+			perkStrikeCraftReserveInf = def.perkStrikeCraftReserveInf;
+			hazardsSizeMult = def.hazardsSizeMult;
+			hazardsForceMult = def.hazardsForceMult;
+
 			PerkPatches.SetDefaults ();
 		}
 	}
