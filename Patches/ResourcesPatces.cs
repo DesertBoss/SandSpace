@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SandSpace.Patches
+namespace SandSpace
 {
 	internal class ResourcesPatces
 	{

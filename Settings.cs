@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using UnityEngine;
 using UnityModManagerNet;
 
@@ -112,6 +108,14 @@ namespace SandSpace
 
 		[Draw ("┗━ Write default values when starting a new game")]
 		public bool writeDefOnNewGame = true;
+
+		[Header ("┏ Experimental"), Space (25f)]
+
+		[Draw ("┗━━ Drag factor in outer space", Min = 0.01, Max = 1000)]
+		public float engineDragMult = 0.5f;
+
+		[Draw ("┗━━ Rotation drag factor in outer space", Min = 0.01, Max = 1000)]
+		public float engineRotateDragMult = 1.0f;
 
 		public override void Save (UnityModManager.ModEntry modEntry)
 		{

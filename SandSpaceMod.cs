@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityModManagerNet;
-using HarmonyLib;
 using System.Reflection;
-using static UnityModManagerNet.UnityModManager;
+using HarmonyLib;
 using UnityEngine;
-using SandSpace.Patches;
+using UnityModManagerNet;
 
 namespace SandSpace
 {
 	public class SandSpaceMod
 	{
-		public const string version = "0.3.3";
+		public const string version = "0.4.0";
 
 		public static UnityModManager.ModEntry ModEntry { get; private set; }
 		public static Settings Settings { get; private set; }
@@ -59,7 +54,7 @@ namespace SandSpace
 
 		private static void OnGUI (UnityModManager.ModEntry modEntry)
 		{
-			UnityModManagerNet.Extensions.Draw (Settings, modEntry);
+			Settings.Draw (modEntry);
 		}
 
 		private static bool OnUnload (UnityModManager.ModEntry modEntry)

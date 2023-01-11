@@ -9,6 +9,11 @@ This is a mod for the game "SPAZ 2" which uses the Unity Mod Manager to work.
 - Changing the strength and size of explosions
 - Changing amount of Rez drop from asteroids
 
+## In developing
+- Block rarity bonus settings
+- Add more turrets to support ships depending on their size
+- Add more turrets to blocks
+
 ## Installation
 - Mod requires [Unity Mod Manager](https://www.nexusmods.com/site/mods/21) to work.
 
