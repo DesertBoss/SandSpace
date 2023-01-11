@@ -68,7 +68,7 @@ namespace SandSpace
 
 		[Header ("┏ All explosions"), Space (25f)]
 
-		[Draw ("┣━ enable")]
+		[Draw ("┣━ Enable")]
 		public bool enableAllExplosionsPatch = false;
 
 		[Draw ("┣━ Change size by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableAllExplosionsPatch|true")]
@@ -82,7 +82,7 @@ namespace SandSpace
 
 		[Header ("┏ Explosions from ship destructions"), Space (25f)]
 
-		[Draw ("┣━ eneble")]
+		[Draw ("┣━ Eneble")]
 		public bool enableShockwaveExplosionsPatch = true;
 
 		[Draw ("┣━ Change size by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableShockwaveExplosionsPatch|true")]
@@ -93,6 +93,20 @@ namespace SandSpace
 
 		[Draw ("┗━ Change force by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableShockwaveExplosionsPatch|true")]
 		public float hazardsShockwaveForceMult = 0.2f;
+
+		[Header ("┏ Resources"), Space (25f)]
+
+		[Draw ("┣━ Enable Rez overriding")]
+		public bool enableRezDropPatch = true;
+
+		[Draw ("┣━━ Min amount of Rez from asteroids multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableRezDropPatch|true")]
+		public float rezMinDropMult = 1.0f;
+
+		[Draw ("┣━━ Max amount of Rez from asteroids multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableRezDropPatch|true")]
+		public float rezMaxDropMult = 5.0f;
+
+		[Draw ("┗━━ Global multiplier of Rez drop", Min = 0.01, Max = 1000, VisibleOn = "enableRezDropPatch|true")]
+		public float rezGlobalDropMult = 1.0f;
 
 		[Header ("┏ Misc"), Space (25f)]
 
@@ -167,6 +181,10 @@ namespace SandSpace
 			hazardsShockwaveSizeMult = def.hazardsShockwaveSizeMult;
 			hazardsShockwaveDamageMult = def.hazardsShockwaveDamageMult;
 			hazardsShockwaveForceMult = def.hazardsShockwaveForceMult;
+			enableRezDropPatch = def.enableRezDropPatch;
+			rezMinDropMult = def.rezMinDropMult;
+			rezMaxDropMult = def.rezMaxDropMult;
+			rezGlobalDropMult = def.rezGlobalDropMult;
 
 			PerkPatches.SetDefaults ();
 		}

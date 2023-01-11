@@ -63,6 +63,7 @@
     <Compile Include="Patches\HangarsPatches.cs" />
     <Compile Include="Patches\HazardPatches.cs" />
     <Compile Include="Hooks\MainMenuHook.cs" />
+    <Compile Include="Patches\ResourcesPatces.cs" />
     <Compile Include="PatchingExtension.cs" />
     <Compile Include="SandSpaceMod.cs" />
     <Compile Include="Patches\PerkPatches.cs" />

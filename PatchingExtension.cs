@@ -1,10 +1,17 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
+using UnityEngine;
 
 namespace SandSpace
 {
 	public static class PatchingExtension
 	{
+		//__instance
+		//__result
+		//__state
+		//___fields
+		//__args
 		public static void SetPrivateFieldValue (object obj, string fieldName, object value)
 		{
 			AccessTools.Field (obj.GetType (), fieldName).SetValue (obj, value);
@@ -31,6 +38,18 @@ namespace SandSpace
 				return default;
 
 			return (TResult) property.GetValue (obj, null);
+		}
+
+		public static List<string> GetGameObjectComponents (GameObject gameObject)
+		{
+			var result = new List<string> ();
+			
+			foreach (var components in gameObject.GetComponents<object> ())
+			{
+				result.Add ($"{gameObject.name}: ({components.GetType ()}) component");
+			}
+
+			return result;
 		}
 	}
 }

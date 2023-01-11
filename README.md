@@ -7,6 +7,7 @@ This is a mod for the game "SPAZ 2" which uses the Unity Mod Manager to work.
 - Changing number of core blocks
 - Changing perk bonuses after max player level
 - Changing the strength and size of explosions
+- Changing amount of Rez drop from asteroids
 
 ## Installation
 - Mod requires [Unity Mod Manager](https://www.nexusmods.com/site/mods/21) to work.
@@ -33,7 +34,8 @@ This is a mod for the game "SPAZ 2" which uses the Unity Mod Manager to work.
 ## Recommendations
 - If you are running the mod for the first time and want to load a save, restart the game after loading.
 - If you want to start a new game, then after entering the global map, save and restart the game.
-- These actions are needed to unlock all mod settings.
+- These actions are done once and are required to unlock all mod settings.
+- All mod settings are desirable to do in the main menu.
 
 ## License
 MIT

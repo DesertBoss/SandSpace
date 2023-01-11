@@ -7,6 +7,7 @@ using HarmonyLib;
 using System.Reflection;
 using static UnityModManagerNet.UnityModManager;
 using UnityEngine;
+using SandSpace.Patches;
 
 namespace SandSpace
 {
@@ -33,6 +34,12 @@ namespace SandSpace
 			{
 				Harmony.PatchAll (Assembly.GetExecutingAssembly ());
 				DynamicPathes ();
+
+				var dat = PatchingExtension.GetGameObjectComponents (GameManager.GetSpawnManager ().rezDrop_10);
+				foreach (var line in dat)
+				{
+					modEntry.Logger.Log (line);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -79,7 +86,14 @@ namespace SandSpace
 						typeof (ShockwaveGenerator), "SpawnShockwave",
 						new Type[] { typeof (Vector3), typeof (float), typeof (float), typeof (float), typeof (float), typeof (bool) }
 					),
-					prefix: new HarmonyMethod (typeof (HazardPatches.ShockwaveGenerator_SpawnShockwave_Patch), "Prefix"));
+					prefix: new HarmonyMethod (typeof (HazardPatches.ShockwaveGenerator_SpawnShockwave_Patch), "Prefix")
+				);
+
+			if (Settings.enableRezDropPatch)
+				Harmony.Patch (
+					AccessTools.Method (typeof (PickupRez), "OnPickedUp"),
+					prefix: new HarmonyMethod (typeof (ResourcesPatces.PickupRez_OnPickedUp_Patch), "Prefix")
+				);
 		}
 
 		private static void ReloadHarmonyPatches ()
