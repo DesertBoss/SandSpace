@@ -6,12 +6,13 @@ using UnityModManagerNet;
 using HarmonyLib;
 using System.Reflection;
 using static UnityModManagerNet.UnityModManager;
+using UnityEngine;
 
 namespace SandSpace
 {
 	public class SandSpaceMod
 	{
-		public const string version = "0.3.2";
+		public const string version = "0.3.3";
 
 		public static UnityModManager.ModEntry ModEntry { get; private set; }
 		public static Settings Settings { get; private set; }
@@ -31,6 +32,7 @@ namespace SandSpace
 			try
 			{
 				Harmony.PatchAll (Assembly.GetExecutingAssembly ());
+				DynamicPathes ();
 			}
 			catch (Exception ex)
 			{
@@ -63,6 +65,23 @@ namespace SandSpace
 			return true;
 		}
 
+		private static void DynamicPathes ()
+		{
+			if (Settings.enableAllExplosionsPatch)
+				Harmony.Patch (
+					AccessTools.Method (typeof (HazardManager), "CreateAreaHazard"),
+					prefix : new HarmonyMethod (typeof (HazardPatches.HazardManager_CreateAreaHazard_Patch), "Prefix")
+				);
+
+			if (Settings.enableShockwaveExplosionsPatch)
+				Harmony.Patch (
+					AccessTools.Method (
+						typeof (ShockwaveGenerator), "SpawnShockwave",
+						new Type[] { typeof (Vector3), typeof (float), typeof (float), typeof (float), typeof (float), typeof (bool) }
+					),
+					prefix: new HarmonyMethod (typeof (HazardPatches.ShockwaveGenerator_SpawnShockwave_Patch), "Prefix"));
+		}
+
 		private static void ReloadHarmonyPatches ()
 		{
 			if (!SandSpaceMod.Settings._changed &&
@@ -71,6 +90,7 @@ namespace SandSpace
 
 			Harmony.UnpatchAll (SandSpaceMod.ModEntry.Info.Id);
 			Harmony.PatchAll (Assembly.GetExecutingAssembly ());
+			DynamicPathes ();
 		}
 	}
 }

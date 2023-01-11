@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using HarmonyLib;
 using UnityEngine;
@@ -9,21 +10,31 @@ namespace SandSpace
 {
 	internal class HazardPatches
 	{
-		[HarmonyPatch (typeof (HazardManager), "CreateAreaHazard")]
-		private static class HazardManager_CreateAreaHazard_Patch
+		internal static class HazardManager_CreateAreaHazard_Patch
 		{
-			// HazardManager __instance
-			private static bool Prefix (ref AreaHazard prefab, ref Vector3 position, ref float damage, ref float force, ref float radius, ref float lifetime)
+			internal static bool Prefix (ref float damage, ref float force, ref float radius, ref float lifetime)
 			{
-				if (force > 0.0f)
-				{
-					force = force * SandSpaceMod.Settings.hazardsForceMult;
-					damage = damage * SandSpaceMod.Settings.hazardsDamageMult;
+				force = force * SandSpaceMod.Settings.hazardsAllForceMult;
+				damage = damage * SandSpaceMod.Settings.hazardsAllDamageMult;
 
-					var preRadius = radius;
-					radius = preRadius * SandSpaceMod.Settings.hazardsSizeMult;
-					lifetime = lifetime * (radius / preRadius);
-				}
+				var preRadius = radius;
+				radius = preRadius * SandSpaceMod.Settings.hazardsAllSizeMult;
+				lifetime = lifetime * (radius / preRadius);
+
+				return true;
+			}
+		}
+
+		internal static class ShockwaveGenerator_SpawnShockwave_Patch
+		{
+			internal static bool Prefix (ref float damage, ref float force, ref float radius, ref float lifetime)
+			{
+				force = force * SandSpaceMod.Settings.hazardsShockwaveForceMult;
+				damage = damage * SandSpaceMod.Settings.hazardsShockwaveDamageMult;
+
+				var preRadius = radius;
+				radius = preRadius * SandSpaceMod.Settings.hazardsShockwaveSizeMult;
+				lifetime = lifetime * (radius / preRadius);
 
 				return true;
 			}

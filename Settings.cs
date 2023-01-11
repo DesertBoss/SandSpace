@@ -66,16 +66,33 @@ namespace SandSpace
 		[Draw ("┗━━ Strike Craft Reserve perk bonus", Min = 1, Max = 1000)]
 		public int perkStrikeCraftReserveInf = 8;
 
-		[Header ("┏ Hazards"), Space (25f)]
+		[Header ("┏ All explosions"), Space (25f)]
 
-		[Draw ("┣━ Change size of all explosions by multiplier", Min = 0.01, Max = 1000)]
-		public float hazardsSizeMult = 4.0f;
+		[Draw ("┣━ enable")]
+		public bool enableAllExplosionsPatch = false;
 
-		[Draw ("┣━ Change damage of all explosions by multiplier", Min = 0.01, Max = 1000)]
-		public float hazardsDamageMult = 1.0f;
+		[Draw ("┣━ Change size by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableAllExplosionsPatch|true")]
+		public float hazardsAllSizeMult = 1.0f;
 
-		[Draw ("┗━ Change force of all explosions by multiplier", Min = 0.01, Max = 1000)]
-		public float hazardsForceMult = 1.0f;
+		[Draw ("┣━ Change damage by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableAllExplosionsPatch|true")]
+		public float hazardsAllDamageMult = 1.0f;
+
+		[Draw ("┗━ Change force by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableAllExplosionsPatch|true")]
+		public float hazardsAllForceMult = 1.0f;
+
+		[Header ("┏ Explosions from ship destructions"), Space (25f)]
+
+		[Draw ("┣━ eneble")]
+		public bool enableShockwaveExplosionsPatch = true;
+
+		[Draw ("┣━ Change size by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableShockwaveExplosionsPatch|true")]
+		public float hazardsShockwaveSizeMult = 8.0f;
+
+		[Draw ("┣━ Change damage by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableShockwaveExplosionsPatch|true")]
+		public float hazardsShockwaveDamageMult = 0.2f;
+
+		[Draw ("┗━ Change force by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableShockwaveExplosionsPatch|true")]
+		public float hazardsShockwaveForceMult = 0.2f;
 
 		[Header ("┏ Misc"), Space (25f)]
 
@@ -142,8 +159,14 @@ namespace SandSpace
 			perkWeaponDamageInf = def.perkWeaponDamageInf;
 			perkShieldStrengthInf = def.perkShieldStrengthInf;
 			perkStrikeCraftReserveInf = def.perkStrikeCraftReserveInf;
-			hazardsSizeMult = def.hazardsSizeMult;
-			hazardsForceMult = def.hazardsForceMult;
+			enableAllExplosionsPatch = def.enableAllExplosionsPatch;
+			hazardsAllSizeMult = def.hazardsAllSizeMult;
+			hazardsAllDamageMult = def.hazardsAllDamageMult;
+			hazardsAllForceMult = def.hazardsAllForceMult;
+			enableShockwaveExplosionsPatch = def.enableShockwaveExplosionsPatch;
+			hazardsShockwaveSizeMult = def.hazardsShockwaveSizeMult;
+			hazardsShockwaveDamageMult = def.hazardsShockwaveDamageMult;
+			hazardsShockwaveForceMult = def.hazardsShockwaveForceMult;
 
 			PerkPatches.SetDefaults ();
 		}
