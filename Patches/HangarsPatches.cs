@@ -5,20 +5,21 @@ using HarmonyLib;
 
 namespace SandSpace
 {
-	// SymbolExtensions
-	// Transpilers
-	// AccessTools
-
 	internal class HangarsPatches
 	{
 		internal static void OnGameLoad ()
 		{
-			FixActiveInBattle ();
+
 		}
 
 		internal static void OnNewGame ()
 		{
-			FixActiveInBattle ();
+			
+		}
+
+		internal static void OnSetupPerks ()
+		{
+			FixActiveStrikeCraftInBattle ();
 		}
 
 		[HarmonyPatch (typeof (HangarConfig), "DisplayAllHangars")]
@@ -77,7 +78,7 @@ namespace SandSpace
 			}
 		}
 
-		private static void FixActiveInBattle ()
+		private static void FixActiveStrikeCraftInBattle ()
 		{
 			if (SandSpaceMod.Settings.maxActiveHangars > 4)
 			{

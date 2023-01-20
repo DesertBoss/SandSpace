@@ -117,6 +117,15 @@ namespace SandSpace
 		[Draw ("┗━━ Rotation drag factor in outer space", Min = 0.01, Max = 1000)]
 		public float engineRotateDragMult = 1.0f;
 
+		[Draw ("┗━━ Extra stats multiplier for ship parts", Min = 0.01, Max = 1000)]
+		public float shipPartsBoosterMult = 1.0f;
+
+		[Draw ("┗━━ Extra stats multiplier for station parts", Min = 0.01, Max = 1000)]
+		public float stationPartsBoosterMult = 1.0f;
+
+		[Draw ("┗━━ Extra stats multiplier for strike crafts depending their skill", Min = 0.01, Max = 1000)]
+		public float strikeCraftsStrengthMult = 1.0f;
+
 		public override void Save (UnityModManager.ModEntry modEntry)
 		{
 			UnityModManager.ModSettings.Save<Settings> (this, modEntry);

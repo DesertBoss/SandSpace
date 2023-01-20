@@ -6,11 +6,6 @@ namespace SandSpace
 {
 	public static class PatchingExtension
 	{
-		//__instance
-		//__result
-		//__state
-		//___fields
-		//__args
 		public static void SetPrivateFieldValue (object obj, string fieldName, object value)
 		{
 			AccessTools.Field (obj.GetType (), fieldName).SetValue (obj, value);
@@ -52,3 +47,17 @@ namespace SandSpace
 		}
 	}
 }
+
+//-------------------------------------------------------------------------
+//-------------------------		TEST	-----------------------------------
+//-------------------------------------------------------------------------
+
+//__instance
+//__result
+//__state
+//___fields
+//__args
+
+// SymbolExtensions
+// Transpilers
+// AccessTools

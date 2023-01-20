@@ -8,7 +8,7 @@ namespace SandSpace
 {
 	public class SandSpaceMod
 	{
-		public const string version = "0.4.0";
+		public const string version = "0.4.1";
 
 		public static UnityModManager.ModEntry ModEntry { get; private set; }
 		public static Settings Settings { get; private set; }
@@ -93,11 +93,11 @@ namespace SandSpace
 
 		private static void ReloadHarmonyPatches ()
 		{
-			if (!SandSpaceMod.Settings._changed &&
-				SandSpaceMod.Settings._inGameLock)
+			if (!Settings._changed &&
+				Settings._inGameLock)
 				return;
 
-			Harmony.UnpatchAll (SandSpaceMod.ModEntry.Info.Id);
+			Harmony.UnpatchAll (ModEntry.Info.Id);
 			Harmony.PatchAll (Assembly.GetExecutingAssembly ());
 			DynamicPathes ();
 		}
