@@ -2,6 +2,7 @@
 {
 	internal class HazardPatches
 	{
+		// Патч для настройки силы и размеров всех взрывов в игре
 		internal static class HazardManager_CreateAreaHazard_Patch
 		{
 			internal static bool Prefix (ref float damage, ref float force, ref float radius, ref float lifetime)
@@ -17,6 +18,7 @@
 			}
 		}
 
+		// Патч для настройки силы и размеров взрывов только от кораблей и истребителей в игре
 		internal static class ShockwaveGenerator_SpawnShockwave_Patch
 		{
 			internal static bool Prefix (ref float damage, ref float force, ref float radius, ref float lifetime)

@@ -8,8 +8,9 @@ This is a mod for the game "SPAZ 2" which uses the Unity Mod Manager to work.
 - Changing perk bonuses after max player level
 - Changing the strength and size of explosions
 - Changing amount of Rez drop from asteroids
+- Sandbox settings menu for company mode (need new game)
 
-## In developing
+## In developing (maybe)
 - Block rarity bonus settings
 - Add more turrets to support ships depending on their size
 - Add more turrets to blocks

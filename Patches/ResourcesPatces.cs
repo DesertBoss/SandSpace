@@ -4,6 +4,8 @@ namespace SandSpace
 {
 	internal class ResourcesPatces
 	{
+		// Перехват в момент сбора игроком ресурса Рез
+		// Патч с настройкой колличества Реза добываемого с астероидов
 		internal static class PickupRez_OnPickedUp_Patch
 		{
 			internal static bool Prefix (ref PickupRez __instance)

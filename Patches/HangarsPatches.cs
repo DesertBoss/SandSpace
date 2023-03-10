@@ -22,6 +22,7 @@ namespace SandSpace
 			FixActiveStrikeCraftInBattle ();
 		}
 
+		// Фикс отображения всех ангаров в меню
 		[HarmonyPatch (typeof (HangarConfig), "DisplayAllHangars")]
 		private static class HangarConfig_DisplayAllHangars_Patch
 		{
@@ -37,7 +38,7 @@ namespace SandSpace
 					{
 						codes[i + 1].opcode = OpCodes.Ldc_I4;
 						codes[i + 1].operand = SandSpaceMod.Settings.maxActiveHangars;
-						return codes.AsEnumerable ();
+						break;
 					}
 				}
 
@@ -45,7 +46,8 @@ namespace SandSpace
 			}
 		}
 
-		[HarmonyPatch (typeof (GameManager), "IsHangarUnlocked")]
+		// Фикс для возможности разблокировки ангаров
+		[HarmonyPatch (typeof (GameManager), nameof (GameManager.IsHangarUnlocked))]
 		private static class GameManager_IsHangarUnlocked_Patch
 		{
 			private static void Postfix (ref bool __result, ref int hangarIndex)
@@ -62,7 +64,8 @@ namespace SandSpace
 			}
 		}
 
-		[HarmonyPatch (typeof (GameManager), "GetHangarDisplayLevel")]
+		// Фикс для отображения необходимого уровня для разблокировки ангаров
+		[HarmonyPatch (typeof (GameManager), nameof (GameManager.GetHangarDisplayLevel))]
 		private static class GameManager_GetHangarDisplayLevel_Patch
 		{
 			private static void Postfix (ref int __result, ref int hangarIndex)
@@ -78,6 +81,7 @@ namespace SandSpace
 			}
 		}
 
+		// Фикс активных истребителей во время боя
 		private static void FixActiveStrikeCraftInBattle ()
 		{
 			if (SandSpaceMod.Settings.maxActiveHangars > 4)

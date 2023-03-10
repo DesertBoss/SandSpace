@@ -8,7 +8,7 @@ namespace SandSpace
 {
 	public class SandSpaceMod
 	{
-		public const string version = "0.4.1";
+		public const string version = "0.5.1";
 
 		public static UnityModManager.ModEntry ModEntry { get; private set; }
 		public static Settings Settings { get; private set; }
@@ -29,12 +29,6 @@ namespace SandSpace
 			{
 				Harmony.PatchAll (Assembly.GetExecutingAssembly ());
 				DynamicPathes ();
-
-				var dat = PatchingExtension.GetGameObjectComponents (GameManager.GetSpawnManager ().rezDrop_10);
-				foreach (var line in dat)
-				{
-					modEntry.Logger.Log (line);
-				}
 			}
 			catch (Exception ex)
 			{
@@ -71,14 +65,14 @@ namespace SandSpace
 		{
 			if (Settings.enableAllExplosionsPatch)
 				Harmony.Patch (
-					AccessTools.Method (typeof (HazardManager), "CreateAreaHazard"),
+					AccessTools.Method (typeof (HazardManager), nameof (HazardManager.CreateAreaHazard)),
 					prefix : new HarmonyMethod (typeof (HazardPatches.HazardManager_CreateAreaHazard_Patch), "Prefix")
 				);
 
 			if (Settings.enableShockwaveExplosionsPatch)
 				Harmony.Patch (
 					AccessTools.Method (
-						typeof (ShockwaveGenerator), "SpawnShockwave",
+						typeof (ShockwaveGenerator), nameof (ShockwaveGenerator.SpawnShockwave),
 						new Type[] { typeof (Vector3), typeof (float), typeof (float), typeof (float), typeof (float), typeof (bool) }
 					),
 					prefix: new HarmonyMethod (typeof (HazardPatches.ShockwaveGenerator_SpawnShockwave_Patch), "Prefix")
@@ -86,9 +80,25 @@ namespace SandSpace
 
 			if (Settings.enableRezDropPatch)
 				Harmony.Patch (
-					AccessTools.Method (typeof (PickupRez), "OnPickedUp"),
+					AccessTools.Method (typeof (PickupRez), nameof (PickupRez.OnPickedUp)),
 					prefix: new HarmonyMethod (typeof (ResourcesPatces.PickupRez_OnPickedUp_Patch), "Prefix")
 				);
+
+			if (Settings.enableSandboxCampaign)
+			{
+				Harmony.Patch (
+					AccessTools.Method (typeof (GameFlowManager), nameof (GameFlowManager.SetSandboxMode)),
+					prefix: new HarmonyMethod (typeof (NewGamePatches.GameFlowManager_SetSandboxMode_Patch), "Prefix")
+				);
+				Harmony.Patch (
+					AccessTools.Method (typeof (MenuManager), nameof (MenuManager.ActivateMenu)),
+					prefix: new HarmonyMethod (typeof (NewGamePatches.MenuManager_ActivateMenu_Patch), "Prefix")
+				);
+				Harmony.Patch (
+					AccessTools.Method (typeof (SinglePlayerMenu), nameof (SinglePlayerMenu.windowFunc)),
+					transpiler: new HarmonyMethod (typeof (NewGamePatches.SinglePlayerMenu_windowFunc_Patch), "Transpiler")
+				);
+			}
 		}
 
 		private static void ReloadHarmonyPatches ()

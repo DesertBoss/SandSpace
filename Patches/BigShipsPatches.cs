@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
-using UnityEngine;
 
 namespace SandSpace
 {
 	internal class BigShipsPatches
 	{
-		[HarmonyPatch (typeof (Engine), "GetDrag")]
+		// Патч сопротивления линейному ускорению для кораблей
+		[HarmonyPatch (typeof (Engine), nameof (Engine.GetDrag))]
 		internal static class Engine_GetDrag_Patch
 		{
 			internal static void Postfix (ref float __result)
@@ -14,7 +14,8 @@ namespace SandSpace
 			}
 		}
 
-		[HarmonyPatch (typeof (Engine), "GetRotateAngularDrag")]
+		// Патч сопротивления угловому ускорению для кораблей
+		[HarmonyPatch (typeof (Engine), nameof (Engine.GetRotateAngularDrag))]
 		internal static class Engine_GetRotateAngularDrag_Patch
 		{
 			internal static void Postfix (ref float __result)

@@ -4,7 +4,8 @@ namespace SandSpace.Patches
 {
 	internal class StrikeCraftPatches
 	{
-		[HarmonyPatch (typeof (ItemBuildInfo), "GetStarStrengthMultiplierForStrikeCraft")]
+		// Патч для настройки характеристик истребителей от их навыков
+		[HarmonyPatch (typeof (ItemBuildInfo), nameof (ItemBuildInfo.GetStarStrengthMultiplierForStrikeCraft))]
 		private static class ItemBuildInfo_GetStarStrengthMultiplierForStrikeCraft_Patch
 		{
 			private static bool Prefix (ref float __result, ref int stars)

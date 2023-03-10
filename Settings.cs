@@ -10,7 +10,7 @@ namespace SandSpace
 		//╠╔╚║═
 		internal bool _changed = false;
 
-		internal bool _inGameLock = true;
+		internal bool _inGameLock = false;
 
 		public bool _newGameNeed = true;
 
@@ -107,20 +107,23 @@ namespace SandSpace
 		[Header ("┏ Misc"), Space (25f)]
 
 		[Draw ("┗━ Write default values when starting a new game")]
-		public bool writeDefOnNewGame = true;
+		public bool writeDefaultOnNewGame = true;
 
 		[Header ("┏ Experimental"), Space (25f)]
 
-		[Draw ("┗━━ Drag factor in outer space", Min = 0.01, Max = 1000)]
+		[Draw ("┣━━ Enable sandbox settings menu for company mode (need new game)")]
+		public bool enableSandboxCampaign = false;
+
+		[Draw ("┣━━ Drag factor in outer space", Min = 0.01, Max = 1000)]
 		public float engineDragMult = 0.5f;
 
-		[Draw ("┗━━ Rotation drag factor in outer space", Min = 0.01, Max = 1000)]
+		[Draw ("┣━━ Rotation drag factor in outer space", Min = 0.01, Max = 1000)]
 		public float engineRotateDragMult = 1.0f;
 
-		[Draw ("┗━━ Extra stats multiplier for ship parts", Min = 0.01, Max = 1000)]
+		[Draw ("┣━━ Extra stats multiplier for ship parts", Min = 0.01, Max = 1000)]
 		public float shipPartsBoosterMult = 1.0f;
 
-		[Draw ("┗━━ Extra stats multiplier for station parts", Min = 0.01, Max = 1000)]
+		[Draw ("┣━━ Extra stats multiplier for station parts", Min = 0.01, Max = 1000)]
 		public float stationPartsBoosterMult = 1.0f;
 
 		[Draw ("┗━━ Extra stats multiplier for strike crafts depending their skill", Min = 0.01, Max = 1000)]
@@ -145,7 +148,7 @@ namespace SandSpace
 		{
 			_inGameLock = true;
 
-			if (!writeDefOnNewGame)
+			if (!writeDefaultOnNewGame)
 				return;
 
 			SetDefaults ();

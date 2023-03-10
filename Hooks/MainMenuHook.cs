@@ -4,12 +4,16 @@ namespace SandSpace
 {
 	internal class MainMenuHook
 	{
-		[HarmonyPatch (typeof (MainMenu), "windowFunc")]
-		private static class MainMenu_windowFunc_Patch
+		// Перехват во время появления главного меню
+		[HarmonyPatch (typeof (MenuManager), nameof (MenuManager.ActivateMenu))]
+		private static class MenuManager_ActivateMenu_Patch
 		{
-			private static void Postfix ()
+			private static void Postfix (ref GameMenus menu)
 			{
-				SandSpaceMod.Settings.OnMainMenu ();
+				if (menu == GameMenus.MAINMENU)
+				{
+					SandSpaceMod.Settings.OnMainMenu ();
+				}
 			}
 		}
 	}

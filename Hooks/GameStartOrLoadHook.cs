@@ -4,7 +4,8 @@ namespace SandSpace
 {
 	internal class GameStartOrLoadHook
 	{
-		[HarmonyPatch (typeof (StarmapSetup), "SetupNewStarmap")]
+		// Перехват во время старта новой игры
+		[HarmonyPatch (typeof (StarmapSetup), nameof (StarmapSetup.SetupNewStarmap))]
 		private static class StarmapSetup_SetupNewStarmap_Patch
 		{
 			private static void Postfix ()
@@ -15,7 +16,8 @@ namespace SandSpace
 			}
 		}
 
-		[HarmonyPatch (typeof (StarmapSetup), "OnLoadGame_2")]
+		// Перехват во время загрузки игры
+		[HarmonyPatch (typeof (StarmapSetup), nameof (StarmapSetup.OnLoadGame_2))]
 		private static class StarmapSetup_OnLoadGame_2_Patch
 		{
 			private static void Postfix ()

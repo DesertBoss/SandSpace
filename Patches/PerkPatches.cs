@@ -15,7 +15,8 @@ namespace SandSpace
 			
 		}
 
-		[HarmonyPatch (typeof (PerkCategoryManager), "SetupPerks")]
+		// Перехват во время инициализации всех перков в игре
+		[HarmonyPatch (typeof (PerkCategoryManager), nameof (PerkCategoryManager.SetupPerks))]
 		private static class PerkCategoryManager_SetupPerks_Patch
 		{
 			private static void Postfix (ref PerkCategoryManager __instance)
@@ -36,6 +37,7 @@ namespace SandSpace
 			}
 		}
 
+		// Патч для изменения лимита блоков за уровень игрока
 		private static void CoreUnlockingPatch ()
 		{
 			var man = GameManager.GetPerkManager ();
@@ -53,6 +55,7 @@ namespace SandSpace
 			}
 		}
 
+		// Фикс от софтлока из-за неправильного уровня раблокировки бесконечных навыков
 		private static void FixMaxLevelFromPerks (ref PerkCategoryManager manager)
 		{
 			var perkLookup = PatchingExtension.GetPrivateFieldValue<Perk[]> (manager, "perkLookup");
@@ -74,6 +77,7 @@ namespace SandSpace
 			PatchingExtension.SetPrivateFieldValue (manager, "maxLevel", newMaxLvl);
 		}
 
+		// Фикс от софтлока из-за неправильного уровня раблокировки бесконечных навыков
 		private static void FixInfPerksUnlockLevel (ref PerkCategoryManager manager)
 		{
 			var maxLvl = PatchingExtension.GetPrivateFieldValue<int> (manager, "maxLevel");
@@ -87,6 +91,7 @@ namespace SandSpace
 			manager.GetPerk (PerkType.WeaponDamage_Inf).myUnlockLevel = maxLvl + 1;
 		}
 
+		// Применение настроек мода для перков
 		internal static void PerkOverride (ref PerkCategoryManager manager)
 		{
 			manager.GetPerk (PerkType.Health_Inf).myPerkValue = SandSpaceMod.Settings.perkHealthInf / 100f;
@@ -103,6 +108,7 @@ namespace SandSpace
 			manager.GetPerk (PerkType.StrikeCraftActive_4).myUnlockLevel = SandSpaceMod.Settings.hangar_4_unlockLevel;
 		}
 
+		// Возврат к стандартным параметрам
 		internal static void SetDefaults ()
 		{
 			var manager = GameManager.GetPerkManager ();
