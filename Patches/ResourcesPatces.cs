@@ -8,7 +8,7 @@ namespace SandSpace
 		// Патч с настройкой колличества Реза добываемого с астероидов
 		internal static class PickupRez_OnPickedUp_Patch
 		{
-			internal static bool Prefix (ref PickupRez __instance)
+			internal static bool Prefix (ref PickupRez __instance, ref PickupGrabber grabber)
 			{
 				var newValue = __instance.pickupOverrideValue;
 				if (newValue > 0)
@@ -22,6 +22,12 @@ namespace SandSpace
 				{
 					newValue = Mathf.FloorToInt (newValue * SandSpaceMod.Settings.rezGlobalDropMult);
 				}
+				if (SandSpaceMod.Settings.rezDropMultFromLevel)
+				{
+					var playerLevel = grabber.GetShipControls ().GetBattleEntity ().GetCurrentLevel ();
+					newValue *= playerLevel;
+				}
+
 				__instance.pickupOverrideValue = newValue;
 
 				return true;

@@ -82,7 +82,7 @@ namespace SandSpace
 		public bool enableShockwaveExplosionsPatch = true;
 
 		[Draw ("┣━ Change size by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableShockwaveExplosionsPatch|true")]
-		public float hazardsShockwaveSizeMult = 8.0f;
+		public float hazardsShockwaveSizeMult = 4.0f;
 
 		[Draw ("┣━ Change damage by multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableShockwaveExplosionsPatch|true")]
 		public float hazardsShockwaveDamageMult = 0.2f;
@@ -99,7 +99,10 @@ namespace SandSpace
 		public float rezMinDropMult = 1.0f;
 
 		[Draw ("┣━━ Max amount of Rez from asteroids multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableRezDropPatch|true")]
-		public float rezMaxDropMult = 5.0f;
+		public float rezMaxDropMult = 2.0f;
+
+		[Draw ("┣━━ Enable player level as multiplier of Rez from asteroids")]
+		public bool rezDropMultFromLevel = false;
 
 		[Draw ("┗━━ Global multiplier of Rez drop", Min = 0.01, Max = 1000, VisibleOn = "enableRezDropPatch|true")]
 		public float rezGlobalDropMult = 1.0f;
@@ -111,22 +114,25 @@ namespace SandSpace
 
 		[Header ("┏ Experimental"), Space (25f)]
 
-		[Draw ("┣━━ Enable sandbox settings menu for company mode (need new game)")]
+		[Draw ("┣━━ Enable sandbox settings menu when starting new campaign")]
 		public bool enableSandboxCampaign = false;
 
-		[Draw ("┣━━ Drag factor in outer space", Min = 0.01, Max = 1000)]
-		public float engineDragMult = 0.5f;
+		[Draw ("┣━━ Linear drag factor in outer space", Min = 0.01, Max = 1000)]
+		public float engineLinearDragMult = 0.75f;
 
-		[Draw ("┣━━ Rotation drag factor in outer space", Min = 0.01, Max = 1000)]
-		public float engineRotateDragMult = 1.0f;
+		[Draw ("┣━━ Angular drag factor in outer space", Min = 0.01, Max = 1000)]
+		public float engineAngularDragMult = 1.0f;
 
-		[Draw ("┣━━ Extra stats multiplier for ship parts", Min = 0.01, Max = 1000)]
+		[Draw ("┣━━ Extra stats multiplier from rarity for ship parts", Min = 0.01, Max = 1000)]
 		public float shipPartsBoosterMult = 1.0f;
 
-		[Draw ("┣━━ Extra stats multiplier for station parts", Min = 0.01, Max = 1000)]
+		[Draw ("┣━━ Extra stats multiplier from rarity for station parts", Min = 0.01, Max = 1000)]
 		public float stationPartsBoosterMult = 1.0f;
 
-		[Draw ("┗━━ Extra stats multiplier for strike crafts depending their skill", Min = 0.01, Max = 1000)]
+		[Draw ("┣━━ Enable price fix for ship parts if applyed extra stats multiplier")]
+		public bool enablePartCostPatch = false;
+
+		[Draw ("┗━━ Extra stats multiplier from rarity for strike crafts", Min = 0.01, Max = 1000)]
 		public float strikeCraftsStrengthMult = 1.0f;
 
 		public override void Save (UnityModManager.ModEntry modEntry)
@@ -201,6 +207,14 @@ namespace SandSpace
 			rezMinDropMult = def.rezMinDropMult;
 			rezMaxDropMult = def.rezMaxDropMult;
 			rezGlobalDropMult = def.rezGlobalDropMult;
+
+			enableSandboxCampaign = def.enableSandboxCampaign;
+			engineLinearDragMult = def.engineLinearDragMult;
+			engineAngularDragMult = def.engineAngularDragMult;
+			shipPartsBoosterMult = def.shipPartsBoosterMult;
+			stationPartsBoosterMult = def.stationPartsBoosterMult;
+			enablePartCostPatch = def.enablePartCostPatch;
+			strikeCraftsStrengthMult = def.strikeCraftsStrengthMult;
 
 			PerkPatches.SetDefaults ();
 		}

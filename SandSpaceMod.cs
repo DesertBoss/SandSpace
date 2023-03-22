@@ -8,7 +8,7 @@ namespace SandSpace
 {
 	public class SandSpaceMod
 	{
-		public const string version = "0.5.1";
+		public const string version = "0.5.2";
 
 		public static UnityModManager.ModEntry ModEntry { get; private set; }
 		public static Settings Settings { get; private set; }
@@ -99,6 +99,12 @@ namespace SandSpace
 					transpiler: new HarmonyMethod (typeof (NewGamePatches.SinglePlayerMenu_windowFunc_Patch), "Transpiler")
 				);
 			}
+
+			if (Settings.enablePartCostPatch)
+				Harmony.Patch (
+					AccessTools.Method (typeof (ShipPartDatabase), nameof (ShipPartDatabase.GetBuildInfoScrapPrice)),
+					transpiler: new HarmonyMethod (typeof (ShipPartsPatches.ShipPartDatabase_GetBuildInfoScrapPrice_Patch), "Transpiler")
+				);
 		}
 
 		private static void ReloadHarmonyPatches ()

@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace SandSpace.Patches
+namespace SandSpace
 {
 	internal class StrikeCraftPatches
 	{

@@ -1,5 +1,5 @@
 # SandSpace
-This is a mod for the game "SPAZ 2" which uses the Unity Mod Manager to work.
+This is a mod for the game "SPAZ 2" which uses the Unity Mod Manager to work. (final version)
 
 ## Features
 - Changing number of active hangars
@@ -8,12 +8,8 @@ This is a mod for the game "SPAZ 2" which uses the Unity Mod Manager to work.
 - Changing perk bonuses after max player level
 - Changing the strength and size of explosions
 - Changing amount of Rez drop from asteroids
-- Sandbox settings menu for company mode (need new game)
-
-## In developing (maybe)
-- Block rarity bonus settings
-- Add more turrets to support ships depending on their size
-- Add more turrets to blocks
+- Changing block bonus stats from rarity
+- Sandbox settings menu when starting new campaign
 
 ## Installation
 - Mod requires [Unity Mod Manager](https://www.nexusmods.com/site/mods/21) to work.
