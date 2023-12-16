@@ -51,7 +51,7 @@ namespace SandSpace
 			{
 				var cur = startIdx + i;
 				var perkType = (PerkType)cur;
-				man.GetPerk (perkType).myPerkValue = SandSpaceMod.Settings.perkCoreUnlockingPerLevel;
+				man.GetPerk (perkType).myPerkValue = SandSpaceMod.Settings.PerkCoreUnlockingPerLevel;
 			}
 		}
 
@@ -72,7 +72,7 @@ namespace SandSpace
 			}
 
 			if (maxLvl != newMaxLvl)
-				SandSpaceMod.ModEntry.Logger.Log ($"FixMaxLevelFromPerks: old {maxLvl}, new {newMaxLvl}");
+				SandSpaceMod.Logger.Log ($"FixMaxLevelFromPerks: old {maxLvl}, new {newMaxLvl}");
 
 			PatchingExtension.SetPrivateFieldValue (manager, "maxLevel", newMaxLvl);
 		}
@@ -94,18 +94,18 @@ namespace SandSpace
 		// Применение настроек мода для перков
 		internal static void PerkOverride (ref PerkCategoryManager manager)
 		{
-			manager.GetPerk (PerkType.Health_Inf).myPerkValue = SandSpaceMod.Settings.perkHealthInf / 100f;
-			manager.GetPerk (PerkType.Armor_Inf).myPerkValue = SandSpaceMod.Settings.perkArmorInf / 100f;
-			manager.GetPerk (PerkType.Capacitor_Inf).myPerkValue = SandSpaceMod.Settings.perkCapacitorInf / 100f;
-			manager.GetPerk (PerkType.Reactor_Inf).myPerkValue = SandSpaceMod.Settings.perkReactorInf / 100f;
-			manager.GetPerk (PerkType.WeaponDamage_Inf).myPerkValue = SandSpaceMod.Settings.perkWeaponDamageInf / 100f;
-			manager.GetPerk (PerkType.Shield_Strength_Inf).myPerkValue = SandSpaceMod.Settings.perkShieldStrengthInf / 100f;
-			manager.GetPerk (PerkType.StrikeCraftReserve_Inf).myPerkValue = SandSpaceMod.Settings.perkStrikeCraftReserveInf;
+			manager.GetPerk (PerkType.Health_Inf).myPerkValue = SandSpaceMod.Settings.PerkHealthInf / 100f;
+			manager.GetPerk (PerkType.Armor_Inf).myPerkValue = SandSpaceMod.Settings.PerkArmorInf / 100f;
+			manager.GetPerk (PerkType.Capacitor_Inf).myPerkValue = SandSpaceMod.Settings.PerkCapacitorInf / 100f;
+			manager.GetPerk (PerkType.Reactor_Inf).myPerkValue = SandSpaceMod.Settings.PerkReactorInf / 100f;
+			manager.GetPerk (PerkType.WeaponDamage_Inf).myPerkValue = SandSpaceMod.Settings.PerkWeaponDamageInf / 100f;
+			manager.GetPerk (PerkType.Shield_Strength_Inf).myPerkValue = SandSpaceMod.Settings.PerkShieldStrengthInf / 100f;
+			manager.GetPerk (PerkType.StrikeCraftReserve_Inf).myPerkValue = SandSpaceMod.Settings.PerkStrikeCraftReserveInf;
 
-			manager.GetPerk (PerkType.StrikeCraftActive_1).myUnlockLevel = SandSpaceMod.Settings.hangar_1_unlockLevel;
-			manager.GetPerk (PerkType.StrikeCraftActive_2).myUnlockLevel = SandSpaceMod.Settings.hangar_2_unlockLevel;
-			manager.GetPerk (PerkType.StrikeCraftActive_3).myUnlockLevel = SandSpaceMod.Settings.hangar_3_unlockLevel;
-			manager.GetPerk (PerkType.StrikeCraftActive_4).myUnlockLevel = SandSpaceMod.Settings.hangar_4_unlockLevel;
+			manager.GetPerk (PerkType.StrikeCraftActive_1).myUnlockLevel = SandSpaceMod.Settings.Hangar_1_unlockLevel;
+			manager.GetPerk (PerkType.StrikeCraftActive_2).myUnlockLevel = SandSpaceMod.Settings.Hangar_2_unlockLevel;
+			manager.GetPerk (PerkType.StrikeCraftActive_3).myUnlockLevel = SandSpaceMod.Settings.Hangar_3_unlockLevel;
+			manager.GetPerk (PerkType.StrikeCraftActive_4).myUnlockLevel = SandSpaceMod.Settings.Hangar_4_unlockLevel;
 		}
 
 		// Возврат к стандартным параметрам
@@ -113,10 +113,10 @@ namespace SandSpace
 		{
 			var manager = GameManager.GetPerkManager ();
 
-			SandSpaceMod.Settings.hangar_1_unlockLevel = manager.GetPerk (PerkType.StrikeCraftActive_1).myUnlockLevel;
-			SandSpaceMod.Settings.hangar_2_unlockLevel = manager.GetPerk (PerkType.StrikeCraftActive_2).myUnlockLevel;
-			SandSpaceMod.Settings.hangar_3_unlockLevel = manager.GetPerk (PerkType.StrikeCraftActive_3).myUnlockLevel;
-			SandSpaceMod.Settings.hangar_4_unlockLevel = manager.GetPerk (PerkType.StrikeCraftActive_4).myUnlockLevel;
+			SandSpaceMod.Settings.Hangar_1_unlockLevel = manager.GetPerk (PerkType.StrikeCraftActive_1).myUnlockLevel;
+			SandSpaceMod.Settings.Hangar_2_unlockLevel = manager.GetPerk (PerkType.StrikeCraftActive_2).myUnlockLevel;
+			SandSpaceMod.Settings.Hangar_3_unlockLevel = manager.GetPerk (PerkType.StrikeCraftActive_3).myUnlockLevel;
+			SandSpaceMod.Settings.Hangar_4_unlockLevel = manager.GetPerk (PerkType.StrikeCraftActive_4).myUnlockLevel;
 		}
 	}
 }

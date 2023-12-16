@@ -16,9 +16,9 @@ namespace SandSpace
 			{
 				ItemType itemType = __instance.GetPrefabRefObject().GetItemType();
 				if (GameManager.GetShipPartDatabase ().IsStationPart (itemType))
-					__result = Mathf.FloorToInt (__result * SandSpaceMod.Settings.stationPartsBoosterMult);
+					__result = Mathf.FloorToInt (__result * SandSpaceMod.Settings.StationPartsBoosterMult);
 				else
-					__result = Mathf.FloorToInt (__result * SandSpaceMod.Settings.shipPartsBoosterMult);
+					__result = Mathf.FloorToInt (__result * SandSpaceMod.Settings.ShipPartsBoosterMult);
 			}
 		}
 

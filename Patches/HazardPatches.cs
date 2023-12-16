@@ -7,11 +7,11 @@
 		{
 			internal static bool Prefix (ref float damage, ref float force, ref float radius, ref float lifetime)
 			{
-				force = force * SandSpaceMod.Settings.hazardsAllForceMult;
-				damage = damage * SandSpaceMod.Settings.hazardsAllDamageMult;
+				force = force * SandSpaceMod.Settings.HazardsAllForceMult;
+				damage = damage * SandSpaceMod.Settings.HazardsAllDamageMult;
 
 				var preRadius = radius;
-				radius = preRadius * SandSpaceMod.Settings.hazardsAllSizeMult;
+				radius = preRadius * SandSpaceMod.Settings.HazardsAllSizeMult;
 				lifetime = lifetime * (radius / preRadius);
 
 				return true;
@@ -23,11 +23,11 @@
 		{
 			internal static bool Prefix (ref float damage, ref float force, ref float radius, ref float lifetime)
 			{
-				force = force * SandSpaceMod.Settings.hazardsShockwaveForceMult;
-				damage = damage * SandSpaceMod.Settings.hazardsShockwaveDamageMult;
+				force = force * SandSpaceMod.Settings.HazardsShockwaveForceMult;
+				damage = damage * SandSpaceMod.Settings.HazardsShockwaveDamageMult;
 
 				var preRadius = radius;
-				radius = preRadius * SandSpaceMod.Settings.hazardsShockwaveSizeMult;
+				radius = preRadius * SandSpaceMod.Settings.HazardsShockwaveSizeMult;
 				lifetime = lifetime * (radius / preRadius);
 
 				return true;

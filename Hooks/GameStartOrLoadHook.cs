@@ -22,7 +22,7 @@ namespace SandSpace
 		{
 			private static void Postfix ()
 			{
-				SandSpaceMod.Settings.OnLoadGame ();
+				SandSpaceMod.Settings.OnGameLoad ();
 				PerkPatches.OnGameLoad ();
 				HangarsPatches.OnGameLoad ();
 			}

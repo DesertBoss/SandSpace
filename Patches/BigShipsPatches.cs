@@ -10,7 +10,7 @@ namespace SandSpace
 		{
 			internal static void Postfix (ref float __result)
 			{
-				__result = __result * SandSpaceMod.Settings.engineLinearDragMult;
+				__result = __result * SandSpaceMod.Settings.EngineLinearDragMult;
 			}
 		}
 
@@ -20,7 +20,7 @@ namespace SandSpace
 		{
 			internal static void Postfix (ref float __result)
 			{
-				__result = __result * SandSpaceMod.Settings.engineAngularDragMult;
+				__result = __result * SandSpaceMod.Settings.EngineAngularDragMult;
 			}
 		}
 	}

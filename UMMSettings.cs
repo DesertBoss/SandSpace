@@ -4,13 +4,12 @@ using UnityModManagerNet;
 
 namespace SandSpace
 {
-	public class Settings : UnityModManager.ModSettings, IDrawable
+	public class UMMSettings : UnityModManager.ModSettings, IModSettings, IDrawable
 	{
 		//┣┏┗┃━
 		//╠╔╚║═
-		internal bool _changed = false;
-
-		internal bool _inGameLock = false;
+		private bool _changed = false;
+		private bool _inGameLock = false;
 
 		public bool _newGameNeed = true;
 
@@ -135,14 +134,56 @@ namespace SandSpace
 		[Draw ("┗━━ Extra stats multiplier from rarity for strike crafts", Min = 0.01, Max = 1000)]
 		public float strikeCraftsStrengthMult = 1.0f;
 
+
+		bool IModSettings.Changed => _changed;
+		bool IModSettings.InGameLock => _inGameLock;
+		bool IModSettings.NewGameNeed => _newGameNeed;
+
+		int IModSettings.MaxActiveHangars => maxActiveHangars;
+		int IModSettings.Hangar_1_unlockLevel { get => hangar_1_unlockLevel; set => hangar_1_unlockLevel = value; }
+		int IModSettings.Hangar_2_unlockLevel { get => hangar_2_unlockLevel; set => hangar_2_unlockLevel = value; }
+		int IModSettings.Hangar_3_unlockLevel { get => hangar_3_unlockLevel; set => hangar_3_unlockLevel = value; }
+		int IModSettings.Hangar_4_unlockLevel { get => hangar_4_unlockLevel; set => hangar_4_unlockLevel = value; }
+		int IModSettings.Hangar_Inf_unlockLevel => hangar_Inf_unlockLevel;
+		int IModSettings.PerkCoreUnlockingPerLevel => perkCoreUnlockingPerLevel;
+		int IModSettings.PerkHealthInf => perkHealthInf;
+		int IModSettings.PerkArmorInf => perkArmorInf;
+		int IModSettings.PerkCapacitorInf => perkCapacitorInf;
+		int IModSettings.PerkReactorInf => perkReactorInf;
+		int IModSettings.PerkWeaponDamageInf => perkWeaponDamageInf;
+		int IModSettings.PerkShieldStrengthInf => perkShieldStrengthInf;
+		int IModSettings.PerkStrikeCraftReserveInf => perkStrikeCraftReserveInf;
+		bool IModSettings.EnableAllExplosionsPatch => enableAllExplosionsPatch;
+		float IModSettings.HazardsAllSizeMult => hazardsAllSizeMult;
+		float IModSettings.HazardsAllDamageMult => hazardsAllDamageMult;
+		float IModSettings.HazardsAllForceMult => hazardsAllForceMult;
+		bool IModSettings.EnableShockwaveExplosionsPatch => enableShockwaveExplosionsPatch;
+		float IModSettings.HazardsShockwaveSizeMult => hazardsShockwaveSizeMult;
+		float IModSettings.HazardsShockwaveDamageMult => hazardsShockwaveDamageMult;
+		float IModSettings.HazardsShockwaveForceMult => hazardsShockwaveForceMult;
+		bool IModSettings.EnableRezDropPatch => enableRezDropPatch;
+		float IModSettings.RezMinDropMult => rezMinDropMult;
+		float IModSettings.RezMaxDropMult => rezMaxDropMult;
+		bool IModSettings.RezDropMultFromLevel => rezDropMultFromLevel;
+		float IModSettings.RezGlobalDropMult => rezGlobalDropMult;
+		bool IModSettings.WriteDefaultOnNewGame => writeDefaultOnNewGame;
+		bool IModSettings.EnableSandboxCampaign => enableSandboxCampaign;
+		float IModSettings.EngineLinearDragMult => engineLinearDragMult;
+		float IModSettings.EngineAngularDragMult => engineAngularDragMult;
+		float IModSettings.ShipPartsBoosterMult => shipPartsBoosterMult;
+		float IModSettings.StationPartsBoosterMult => stationPartsBoosterMult;
+		bool IModSettings.EnablePartCostPatch => enablePartCostPatch;
+		float IModSettings.StrikeCraftsStrengthMult => strikeCraftsStrengthMult;
+
+
 		public override void Save (UnityModManager.ModEntry modEntry)
 		{
-			UnityModManager.ModSettings.Save<Settings> (this, modEntry);
+			UnityModManager.ModSettings.Save<UMMSettings> (this, modEntry);
 		}
 
 		public override string GetPath (UnityModManager.ModEntry modEntry)
 		{
-			return Path.Combine (modEntry.Path, "Settings.xml");
+			return Path.Combine (modEntry.Path, "UMMSettings.xml");
 		}
 
 		public void OnChange ()
@@ -160,10 +201,10 @@ namespace SandSpace
 			SetDefaults ();
 
 			_newGameNeed = false;
-			Save (SandSpaceMod.ModEntry);
+			Save (UMMLoader.ModEntry);
 		}
 
-		public void OnLoadGame ()
+		public void OnGameLoad ()
 		{
 			_inGameLock = true;
 
@@ -173,7 +214,7 @@ namespace SandSpace
 			SetDefaults ();
 
 			_newGameNeed = false;
-			Save (SandSpaceMod.ModEntry);
+			Save (UMMLoader.ModEntry);
 		}
 
 		public void OnMainMenu ()
@@ -183,7 +224,7 @@ namespace SandSpace
 
 		private void SetDefaults ()
 		{
-			var def = new Settings ();
+			var def = new UMMSettings ();
 
 			maxActiveHangars = def.maxActiveHangars;
 			hangar_Inf_unlockLevel = def.hangar_Inf_unlockLevel;

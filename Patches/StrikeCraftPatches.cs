@@ -14,19 +14,19 @@ namespace SandSpace
 				{
 					case -1: __result = 1.0f;
 					break;
-					case 0: __result = 1.0f * SandSpaceMod.Settings.strikeCraftsStrengthMult;
+					case 0: __result = 1.0f * SandSpaceMod.Settings.StrikeCraftsStrengthMult;
 					break;
-					case 1: __result = 1.1f * SandSpaceMod.Settings.strikeCraftsStrengthMult;
+					case 1: __result = 1.1f * SandSpaceMod.Settings.StrikeCraftsStrengthMult;
 					break;
-					case 2: __result = 1.25f * SandSpaceMod.Settings.strikeCraftsStrengthMult;
+					case 2: __result = 1.25f * SandSpaceMod.Settings.StrikeCraftsStrengthMult;
 					break;
-					case 3: __result = 1.5f * SandSpaceMod.Settings.strikeCraftsStrengthMult;
+					case 3: __result = 1.5f * SandSpaceMod.Settings.StrikeCraftsStrengthMult;
 					break;
-					case 4: __result = 1.8f * SandSpaceMod.Settings.strikeCraftsStrengthMult;
+					case 4: __result = 1.8f * SandSpaceMod.Settings.StrikeCraftsStrengthMult;
 					break;
-					case 5: __result = 2.2f * SandSpaceMod.Settings.strikeCraftsStrengthMult;
+					case 5: __result = 2.2f * SandSpaceMod.Settings.StrikeCraftsStrengthMult;
 					break;
-					case 6: __result = 3.0f * SandSpaceMod.Settings.strikeCraftsStrengthMult;
+					case 6: __result = 3.0f * SandSpaceMod.Settings.StrikeCraftsStrengthMult;
 					break;
 					default: __result = 10.0f;
 					break;

@@ -2,74 +2,27 @@
 using System.Reflection;
 using HarmonyLib;
 using UnityEngine;
-using UnityModManagerNet;
 
 namespace SandSpace
 {
-	public class SandSpaceMod
+	public static class SandSpaceMod
 	{
-		public const string version = "0.5.2";
+		public const string VERSION = "0.6.0";
 
-		public static UnityModManager.ModEntry ModEntry { get; private set; }
-		public static Settings Settings { get; private set; }
-		public static Harmony Harmony { get; private set; }
+		public static IModSettings Settings { get; internal set; }
+		internal static IModLogger Logger { get; set; }
+		public static ModInfo ModInfo { get; internal set; }
+		internal static Harmony Harmony { get; set; }
 
-		private static bool Load (UnityModManager.ModEntry modEntry)
+		internal static void DynamicPathes ()
 		{
-			ModEntry = modEntry;
-
-			modEntry.OnGUI = OnGUI;
-			modEntry.OnSaveGUI = OnSaveGUI;
-			modEntry.OnUnload = OnUnload;
-
-			Settings = UnityModManager.ModSettings.Load<Settings> (modEntry);
-			Harmony = new Harmony (modEntry.Info.Id);
-
-			try
-			{
-				Harmony.PatchAll (Assembly.GetExecutingAssembly ());
-				DynamicPathes ();
-			}
-			catch (Exception ex)
-			{
-				modEntry.Logger.Error ($"{ex.Message}\n{ex.StackTrace}");
-				return false;
-			}
-
-			modEntry.Logger.Log ($"Mod {modEntry.Info.DisplayName} Loaded");
-			return true;
-		}
-
-		private static void OnSaveGUI (UnityModManager.ModEntry modEntry)
-		{
-			Settings.Save (modEntry);
-			ReloadHarmonyPatches ();
-		}
-
-		private static void OnGUI (UnityModManager.ModEntry modEntry)
-		{
-			Settings.Draw (modEntry);
-		}
-
-		private static bool OnUnload (UnityModManager.ModEntry modEntry)
-		{
-			ModEntry = null;
-			Settings = null;
-			Harmony.UnpatchAll (modEntry.Info.Id);
-			Harmony = null;
-
-			return true;
-		}
-
-		private static void DynamicPathes ()
-		{
-			if (Settings.enableAllExplosionsPatch)
+			if (Settings.EnableAllExplosionsPatch)
 				Harmony.Patch (
 					AccessTools.Method (typeof (HazardManager), nameof (HazardManager.CreateAreaHazard)),
 					prefix : new HarmonyMethod (typeof (HazardPatches.HazardManager_CreateAreaHazard_Patch), "Prefix")
 				);
 
-			if (Settings.enableShockwaveExplosionsPatch)
+			if (Settings.EnableShockwaveExplosionsPatch)
 				Harmony.Patch (
 					AccessTools.Method (
 						typeof (ShockwaveGenerator), nameof (ShockwaveGenerator.SpawnShockwave),
@@ -78,13 +31,13 @@ namespace SandSpace
 					prefix: new HarmonyMethod (typeof (HazardPatches.ShockwaveGenerator_SpawnShockwave_Patch), "Prefix")
 				);
 
-			if (Settings.enableRezDropPatch)
+			if (Settings.EnableRezDropPatch)
 				Harmony.Patch (
 					AccessTools.Method (typeof (PickupRez), nameof (PickupRez.OnPickedUp)),
 					prefix: new HarmonyMethod (typeof (ResourcesPatces.PickupRez_OnPickedUp_Patch), "Prefix")
 				);
 
-			if (Settings.enableSandboxCampaign)
+			if (Settings.EnableSandboxCampaign)
 			{
 				Harmony.Patch (
 					AccessTools.Method (typeof (GameFlowManager), nameof (GameFlowManager.SetSandboxMode)),
@@ -100,20 +53,20 @@ namespace SandSpace
 				);
 			}
 
-			if (Settings.enablePartCostPatch)
+			if (Settings.EnablePartCostPatch)
 				Harmony.Patch (
 					AccessTools.Method (typeof (ShipPartDatabase), nameof (ShipPartDatabase.GetBuildInfoScrapPrice)),
 					transpiler: new HarmonyMethod (typeof (ShipPartsPatches.ShipPartDatabase_GetBuildInfoScrapPrice_Patch), "Transpiler")
 				);
 		}
 
-		private static void ReloadHarmonyPatches ()
+		internal static void ReloadHarmonyPatches ()
 		{
-			if (!Settings._changed &&
-				Settings._inGameLock)
+			if (!Settings.Changed &&
+				Settings.InGameLock)
 				return;
 
-			Harmony.UnpatchAll (ModEntry.Info.Id);
+			Harmony.UnpatchAll (ModInfo.ID);
 			Harmony.PatchAll (Assembly.GetExecutingAssembly ());
 			DynamicPathes ();
 		}

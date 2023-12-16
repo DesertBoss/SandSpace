@@ -37,7 +37,7 @@ namespace SandSpace
 						codes[i + 2].opcode == OpCodes.Blt)
 					{
 						codes[i + 1].opcode = OpCodes.Ldc_I4;
-						codes[i + 1].operand = SandSpaceMod.Settings.maxActiveHangars;
+						codes[i + 1].operand = SandSpaceMod.Settings.MaxActiveHangars;
 						break;
 					}
 				}
@@ -58,7 +58,7 @@ namespace SandSpace
 				{
 					var perk = GameManager.GetPerkManager().GetPerk(PerkType.StrikeCraftActive_4);
 					var unlockLevel_4 = perk.myUnlockLevel;
-					var unlockLevel_Inf = unlockLevel_4 + ((hangarIndex - 3) * SandSpaceMod.Settings.hangar_Inf_unlockLevel);
+					var unlockLevel_Inf = unlockLevel_4 + ((hangarIndex - 3) * SandSpaceMod.Settings.Hangar_Inf_unlockLevel);
 					__result = playerCore.GetCurrentLevel () >= unlockLevel_Inf;
 				}
 			}
@@ -74,7 +74,7 @@ namespace SandSpace
 				{
 					var playerCore = StarmapManager.GetLevelSetup().GetPlayerCore();
 					var unlockLevel_4 = GameManager.GetPerkManager().GetPerk(PerkType.StrikeCraftActive_4).myUnlockLevel;
-					var unlockLevel_Inf = unlockLevel_4 + ((hangarIndex - 3) * SandSpaceMod.Settings.hangar_Inf_unlockLevel);
+					var unlockLevel_Inf = unlockLevel_4 + ((hangarIndex - 3) * SandSpaceMod.Settings.Hangar_Inf_unlockLevel);
 					var unlock = playerCore.GetCurrentLevel () >= unlockLevel_Inf;
 					__result = unlock ? -1 : unlockLevel_Inf;
 				}
@@ -84,10 +84,10 @@ namespace SandSpace
 		// Фикс активных истребителей во время боя
 		private static void FixActiveStrikeCraftInBattle ()
 		{
-			if (SandSpaceMod.Settings.maxActiveHangars > 4)
+			if (SandSpaceMod.Settings.MaxActiveHangars > 4)
 			{
 				var perk = GameManager.GetPerkManager ().GetPerk (PerkType.StrikeCraftActive_4);
-				perk.myPerkValue = SandSpaceMod.Settings.maxActiveHangars - 3;
+				perk.myPerkValue = SandSpaceMod.Settings.MaxActiveHangars - 3;
 			}
 		}
 	}
