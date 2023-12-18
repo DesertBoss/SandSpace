@@ -1,6 +1,7 @@
-﻿using UnityModManagerNet;
+﻿#if UMM_RELEASE
+using UnityModManagerNet;
 
-namespace SandSpace
+namespace SandSpace.Loaders.UMM
 {
 	internal class UMMLogger : UnityModManager.ModEntry.ModLogger, IModLogger
 	{
@@ -14,3 +15,4 @@ namespace SandSpace
 		}
 	}
 }
+#endif

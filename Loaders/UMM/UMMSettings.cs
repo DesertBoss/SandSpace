@@ -1,8 +1,9 @@
-﻿using System.IO;
+﻿#if UMM_RELEASE
+using System.IO;
 using UnityEngine;
 using UnityModManagerNet;
 
-namespace SandSpace
+namespace SandSpace.Loaders.UMM
 {
 	public class UMMSettings : UnityModManager.ModSettings, IModSettings, IDrawable
 	{
@@ -183,7 +184,7 @@ namespace SandSpace
 
 		public override string GetPath (UnityModManager.ModEntry modEntry)
 		{
-			return Path.Combine (modEntry.Path, "UMMSettings.xml");
+			return Path.Combine (modEntry.Path, "Settings.xml");
 		}
 
 		public void OnChange ()
@@ -201,7 +202,7 @@ namespace SandSpace
 			SetDefaults ();
 
 			_newGameNeed = false;
-			Save (UMMLoader.ModEntry);
+			SaveToFile ();
 		}
 
 		public void OnGameLoad ()
@@ -214,12 +215,18 @@ namespace SandSpace
 			SetDefaults ();
 
 			_newGameNeed = false;
-			Save (UMMLoader.ModEntry);
+			SaveToFile ();
 		}
 
 		public void OnMainMenu ()
 		{
 			_inGameLock = false;
+		}
+
+		public void SaveToFile ()
+		{
+			if (_changed || !File.Exists (GetPath (UMMLoader.ModEntry)))
+				Save (UMMLoader.ModEntry);
 		}
 
 		private void SetDefaults ()
@@ -261,3 +268,4 @@ namespace SandSpace
 		}
 	}
 }
+#endif

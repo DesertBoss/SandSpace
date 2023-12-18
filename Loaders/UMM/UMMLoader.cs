@@ -1,31 +1,34 @@
-﻿using System;
-using System.Reflection;
+﻿#if UMM_RELEASE
+using System;
 using HarmonyLib;
 using UnityModManagerNet;
 
-namespace SandSpace
+namespace SandSpace.Loaders.UMM
 {
 	internal static class UMMLoader
 	{
 		internal static UnityModManager.ModEntry ModEntry { get; private set; }
-		internal static UMMSettings UMMSettings { get; private set; }
+		internal static UMMSettings Settings { get; private set; }
 
 		private static bool Load (UnityModManager.ModEntry modEntry)
 		{
+			ModEntry = modEntry;
+
 			modEntry.OnGUI = OnGUI;
 			modEntry.OnSaveGUI = OnSaveGUI;
 			modEntry.OnUnload = OnUnload;
 
-			UMMSettings = UnityModManager.ModSettings.Load<UMMSettings> (modEntry);
-			SandSpaceMod.Settings = UMMSettings;
 			SandSpaceMod.Logger = modEntry.Logger as UMMLogger;
-			SandSpaceMod.Harmony = new Harmony (modEntry.Info.Id);
-			SandSpaceMod.ModInfo = new ModInfo (modEntry.Info.Id, modEntry.Info.DisplayName, modEntry.Info.Version);
+			SandSpaceMod.ModInfo = new ModInfo ($"{modEntry.Info.Author}.{modEntry.Info.Id}", modEntry.Info.Id, modEntry.Info.Version);
+			SandSpaceMod.Harmony = new Harmony (SandSpaceMod.ModInfo.ID);
+
+			Settings = UnityModManager.ModSettings.Load<UMMSettings> (modEntry);
+			Settings.SaveToFile ();
+			SandSpaceMod.Settings = Settings;
 
 			try
 			{
-				SandSpaceMod.Harmony.PatchAll (Assembly.GetExecutingAssembly ());
-				SandSpaceMod.DynamicPathes ();
+				SandSpaceMod.ApplyHarmonyPatches ();
 			}
 			catch (Exception ex)
 			{
@@ -39,13 +42,13 @@ namespace SandSpace
 
 		private static void OnSaveGUI (UnityModManager.ModEntry modEntry)
 		{
-			UMMSettings.Save (modEntry);
+			Settings.Save (modEntry);
 			SandSpaceMod.ReloadHarmonyPatches ();
 		}
 
 		private static void OnGUI (UnityModManager.ModEntry modEntry)
 		{
-			UMMSettings.Draw (modEntry);
+			Settings.Draw (modEntry);
 		}
 
 		private static bool OnUnload (UnityModManager.ModEntry modEntry)
@@ -60,9 +63,10 @@ namespace SandSpace
 			modEntry.OnUnload = null;
 
 			ModEntry = null;
-			UMMSettings = null;
+			Settings = null;
 
 			return true;
 		}
 	}
 }
+#endif

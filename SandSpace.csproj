@@ -3,9 +3,10 @@
     <AssemblyName>SandSpace</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <TargetFramework>net35</TargetFramework>
-		<OutputPath>$(SolutionDir)bin\</OutputPath>
+		<OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<Configurations>UMM-Release;BepInEx-Release</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="..\lib\*.dll">
@@ -13,13 +14,14 @@
     </Reference>
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(OutputPath)$(AssemblyName).dll" "D:\Steam\steamapps\common\SPAZ2\Mods\SandSpace\$(AssemblyName).dll"</PostBuildEvent>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='BepInEx-Release|AnyCPU'">
     <DebugType>portable</DebugType>
+	<Optimize>True</Optimize>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UMM-Release|AnyCPU'">
     <DebugType>portable</DebugType>
+    <Optimize>True</Optimize>
   </PropertyGroup>
- </Project>
+</Project>

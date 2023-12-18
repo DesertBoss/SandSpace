@@ -14,6 +14,11 @@ namespace SandSpace
 		public static ModInfo ModInfo { get; internal set; }
 		internal static Harmony Harmony { get; set; }
 
+		internal static void StaticPatches ()
+		{
+			Harmony.PatchAll (Assembly.GetExecutingAssembly ());
+		}
+
 		internal static void DynamicPathes ()
 		{
 			if (Settings.EnableAllExplosionsPatch)
@@ -60,15 +65,27 @@ namespace SandSpace
 				);
 		}
 
+		internal static void ApplyHarmonyPatches ()
+		{
+			StaticPatches ();
+			DynamicPathes ();
+		}
+
 		internal static void ReloadHarmonyPatches ()
 		{
 			if (!Settings.Changed &&
 				Settings.InGameLock)
 				return;
 
-			Harmony.UnpatchAll (ModInfo.ID);
-			Harmony.PatchAll (Assembly.GetExecutingAssembly ());
-			DynamicPathes ();
+			try
+			{
+				Harmony.UnpatchAll (ModInfo.ID);
+				ApplyHarmonyPatches ();
+			}
+			catch (Exception ex)
+			{
+				Logger.Error ($"{ex.Message}\n{ex.StackTrace}");
+			}
 		}
 	}
 }
