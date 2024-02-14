@@ -7,7 +7,7 @@ namespace SandSpace
 {
 	public static class SandSpaceMod
 	{
-		public const string VERSION = "0.6.0";
+		public const string VERSION = "0.6.1";
 
 		public static IModSettings Settings { get; internal set; }
 		internal static IModLogger Logger { get; set; }

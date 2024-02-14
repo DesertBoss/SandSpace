@@ -3,30 +3,33 @@ using BepInEx.Logging;
 
 namespace SandSpace.Loaders.BepInEx
 {
-	internal class BepInExLogger : ManualLogSource, IModLogger
+	internal class BepInExLogger : IModLogger
 	{
-		public BepInExLogger (string sourceName) : base (sourceName)
+		ManualLogSource _source;
+
+		public BepInExLogger (ManualLogSource source)
 		{
+			_source = source;
 		}
 
 		public void Log (object obj)
 		{
-			Log (obj.ToString ());
+			_source.Log (LogLevel.Info, obj.ToString ());
 		}
 
 		public void Log (string str)
 		{
-			Log (LogLevel.Info, str);
+			_source.Log (LogLevel.Info, str);
 		}
 
 		public void Warning (string str)
 		{
-			Log (LogLevel.Warning, str);
+			_source.Log (LogLevel.Warning, str);
 		}
 
 		public void Error (string str)
 		{
-			Log (LogLevel.Error, str);
+			_source.Log (LogLevel.Error, str);
 		}
 	}
 }

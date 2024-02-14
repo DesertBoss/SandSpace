@@ -18,7 +18,7 @@ namespace SandSpace.Loaders.UMM
 			modEntry.OnSaveGUI = OnSaveGUI;
 			modEntry.OnUnload = OnUnload;
 
-			SandSpaceMod.Logger = modEntry.Logger as UMMLogger;
+			SandSpaceMod.Logger = new UMMLogger (modEntry.Logger);
 			SandSpaceMod.ModInfo = new ModInfo ($"{modEntry.Info.Author}.{modEntry.Info.Id}", modEntry.Info.Id, modEntry.Info.Version);
 			SandSpaceMod.Harmony = new Harmony (SandSpaceMod.ModInfo.ID);
 

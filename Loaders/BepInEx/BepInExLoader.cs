@@ -24,7 +24,7 @@ namespace SandSpace.Loaders.BepInEx
 		{
 			Instance = this;
 
-			SandSpaceMod.Logger = Logger as BepInExLogger;
+			SandSpaceMod.Logger = new BepInExLogger (Logger);
 			SandSpaceMod.ModInfo = new ModInfo (PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION);
 			SandSpaceMod.Harmony = new Harmony (SandSpaceMod.ModInfo.ID);
 
