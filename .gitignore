@@ -361,9 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/SandSpace.sln
-/LICENSE.txt
-/.gitignore
-/.gitignore
-/SandSpace.csproj
-/todo.txt
+
+SandSpace.sln
+todo.txt

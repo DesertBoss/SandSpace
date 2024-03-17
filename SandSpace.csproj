@@ -1,27 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <AssemblyName>SandSpace</AssemblyName>
-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>net35</TargetFramework>
+	<PropertyGroup>
+		<AssemblyName>SandSpace</AssemblyName>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<TargetFramework>net35</TargetFramework>
 		<OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<Configurations>UMM-Release;BepInEx-Release</Configurations>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="..\lib\*.dll">
-      <Private>false</Private>
-    </Reference>
-  </ItemGroup>
-  <PropertyGroup>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='BepInEx-Release|AnyCPU'">
-    <DebugType>portable</DebugType>
-	<Optimize>True</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UMM-Release|AnyCPU'">
-    <DebugType>portable</DebugType>
-    <Optimize>True</Optimize>
-  </PropertyGroup>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="..\lib\*.dll">
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+	<PropertyGroup>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='BepInEx-Release|AnyCPU'">
+		<DebugType>portable</DebugType>
+		<Optimize>True</Optimize>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UMM-Release|AnyCPU'">
+		<DebugType>portable</DebugType>
+		<Optimize>True</Optimize>
+	</PropertyGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if $(Configuration) equ UMM-Release xcopy &quot;$(SolutionDir)bin\$(Configuration)\$(AssemblyName).dll&quot; &quot;%25SteamCommon%25\SPAZ2\Mods\$(AssemblyName)\&quot; /i /y&#xD;&#xA;if $(Configuration) equ BepInEx-Release xcopy &quot;$(SolutionDir)bin\$(Configuration)\$(AssemblyName).dll&quot; &quot;%25SteamCommon%25\SPAZ2\BepInEx\plugins\$(AssemblyName)\&quot; /i /y" />
+	</Target>
 </Project>

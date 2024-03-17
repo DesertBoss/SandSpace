@@ -29,6 +29,7 @@ namespace SandSpace.Loaders.UMM
 			try
 			{
 				SandSpaceMod.ApplyHarmonyPatches ();
+				ApplyUnityModManagerUIFix ();
 			}
 			catch (Exception ex)
 			{
@@ -66,6 +67,41 @@ namespace SandSpace.Loaders.UMM
 			Settings = null;
 
 			return true;
+		}
+
+		private static void ApplyUnityModManagerUIFix ()
+		{
+			UnityModManagerUI.Harmony = new Harmony ($"{SandSpaceMod.ModInfo.ID}.uifix");
+			UnityModManagerUI.Harmony.Patch (
+				AccessTools.Method (typeof (UnityModManager.UI), nameof (UnityModManager.UI.ToggleWindow), new Type[] { typeof (bool) }),
+				postfix: new HarmonyMethod (typeof (UnityModManagerUI), nameof (UnityModManagerUI.UI_ToggleWindow_Patch))
+			);
+		}
+	}
+
+	internal static class UnityModManagerUI
+	{
+		internal static Harmony Harmony { get; set; }
+
+		internal static void UI_ToggleWindow_Patch (UnityModManager.UI __instance, bool open)
+		{
+			if (__instance.Opened)
+				EnableCursorLockPatch ();
+			else
+				DisableCursorLockPatch ();
+		}
+
+		internal static void EnableCursorLockPatch ()
+		{
+			Harmony.Patch (
+				AccessTools.Method (typeof (SpawnManager), "Update"),
+				prefix: new HarmonyMethod (typeof (MainMenuPatches.SpawnManager_Update_Patch), "Prefix")
+			);
+		}
+
+		internal static void DisableCursorLockPatch ()
+		{
+			Harmony.Unpatch (AccessTools.Method (typeof (SpawnManager), "Update"), HarmonyPatchType.Prefix);
 		}
 	}
 }

@@ -101,7 +101,7 @@ namespace SandSpace.Loaders.UMM
 		[Draw ("┣━━ Max amount of Rez from asteroids multiplier", Min = 0.01, Max = 1000, VisibleOn = "enableRezDropPatch|true")]
 		public float rezMaxDropMult = 2.0f;
 
-		[Draw ("┣━━ Enable player level as multiplier of Rez from asteroids")]
+		[Draw ("┣━━ Enable player level as multiplier of Rez from asteroids", VisibleOn = "enableRezDropPatch|true")]
 		public bool rezDropMultFromLevel = false;
 
 		[Draw ("┗━━ Global multiplier of Rez drop", Min = 0.01, Max = 1000, VisibleOn = "enableRezDropPatch|true")]
